@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ConstraintLayout Tədris Nümunəsi: Kalkulyator Ekranı
+    ===================================================
+    Bu layout tələbələrə ConstraintLayout-un ən vacib xüsusiyyətlərini öyrətmək üçün hazırlanıb:
+    1. Üfüqi Zəncirlər (Horizontal Chains) və Zəncir Başlığı (Chain Head)
+    2. '0dp' (match_constraint) anlayışı və nə üçün 'match_parent' istifadə EDİLMƏMƏLİDİR
+    3. Elementlərin üfüqi mərkəzləşdirilməsi (Start və End parent-ə bağlanır)
+    4. Mətnlərin hizalanması (Baseline və Top/Bottom bağlantıları)
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".CalcActivity">
+
+    <!--
+        1. BAŞLIQ (Title):
+        ConstraintLayout-da elementi ekranda üfüqi olaraq tam mərkəzə yerləşdirmək üçün:
+        - app:layout_constraintStart_toStartOf="parent"
+        - app:layout_constraintEnd_toEndOf="parent"
+        hər iki kənar parent-ə eyni vaxtda bağlanmalıdır (50% bias ilə mərkəzləşir).
+    -->
+    <TextView
+        android:id="@+id/tvCalcTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/calc_title"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+        2. NƏTİCƏ SAHƏSİ (Result Display):
+        Əvvəlki xəta: layout_marginStart="166dp" və layout_marginTop="62dp" kimi sabit dəyərlər verilmişdi.
+        Bu halda müxtəlif ekran ölçülərində görünüş pozulurdu.
+        Düzgün yanaşma: Üfüqi olaraq parent-ə bağlanır (mərkəzləşir), şaquli olaraq isə tvCalcTitle-ın altına yerləşdirilir.
+    -->
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/result_default"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCalcTitle" />
+
+    <!--
+        3. ÜFÜQİ ZƏNCİR (Horizontal Chain) - GİRİŞ SAHƏLƏRİ:
+        number1 və number2 birlikdə üfüqi zəncir (chain) yaradır.
+        - number1 zəncirin başlığıdır (Chain Head).
+        - app:layout_constraintHorizontal_chainStyle="spread" təyin edilib.
+        - Vacib qayda: ConstraintLayout-da child elementlərdə 'match_parent' QƏTİYYƏN İSTİFADƏ OLUNMUR!
+          Bunun əvəzinə '0dp' (match_constraint) yazılır ki, constraint sərhədlərinə uyğunlaşsın.
+    -->
+    <EditText
+        android:id="@+id/number1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/first_number"
+        android:inputType="numberDecimal|numberSigned"
+        app:layout_constraintEnd_toStartOf="@+id/number2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result" />
+
+    <!--
+        Zəncirin 2-ci elementi:
+        - start tərəfi number1-in end tərəfinə bağlanır.
+        - end tərəfi isə parent-in end tərəfinə bağlanır.
+        - Şaquli hizalanma: number1 ilə eyni xəttə salmaq üçün top və bottom number1-ə bağlanır.
+    -->
+    <EditText
+        android:id="@+id/number2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="@string/second_number"
+        android:inputType="numberDecimal|numberSigned"
+        app:layout_constraintBottom_toBottomOf="@+id/number1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/number1"
+        app:layout_constraintTop_toTopOf="@+id/number1" />
+
+    <!--
+        4. ƏMƏLİYYAT DÜYMƏLƏRİ ÜÇÜN ÜFÜQİ ZƏNCİR (4 Buttons Chain):
+        btnPlus, btnMinus, btnMultiple və btnDivide bir-birinə qarşılıqlı bağlanaraq 4-lü zəncir yaradır.
+        Chain Head: btnPlus (Zəncirin ən solundakı element zəncirin davranışını təyin edir).
+        'spread' stili düymələri ekran eni boyunca bərabər məsafələrlə paylayır.
+    -->
+    <Button
+        android:id="@+id/btnPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/btn_plus"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnMinus"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number1" />
+
+    <Button
+        android:id="@+id/btnMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_minus"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
+        app:layout_constraintEnd_toStartOf="@+id/btnMultiple"
+        app:layout_constraintStart_toEndOf="@+id/btnPlus"
+        app:layout_constraintTop_toTopOf="@+id/btnPlus" />
+
+    <Button
+        android:id="@+id/btnMultiple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_multiple"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
+        app:layout_constraintEnd_toStartOf="@+id/btnDivide"
+        app:layout_constraintStart_toEndOf="@+id/btnMinus"
+        app:layout_constraintTop_toTopOf="@+id/btnPlus" />
+
+    <Button
+        android:id="@+id/btnDivide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_divide"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMultiple"
+        app:layout_constraintTop_toTopOf="@+id/btnPlus" />
+
+    <!--
+        5. ƏLAVƏ İDARƏETMƏ DÜYMƏLƏRİ:
+        btnClear (Təmizləmə düyməsi):
+        Giriş sahələrini və nəticəni sıfırlamaq üçündür.
+    -->
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/btn_clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlus" />
+
+    <!--
+        6. GERİYƏ QAYITMAQ (Back to Login):
+        Tələbələrin ekranlar arasında rahat keçid edə bilməsi üçün əlavə edilib.
+    -->
+    <Button
+        android:id="@+id/btnBackToLogin"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="← Giriş Ekranına Qayıt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

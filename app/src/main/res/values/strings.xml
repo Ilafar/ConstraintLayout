@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">ConstraintLayout Demo</string>
+
+    <!-- Kalkulyator Ekranı (CalcActivity) Üçün Mətnlər -->
+    <string name="calc_title">Kalkulyator</string>
+    <string name="first_number">1-ci ədəd</string>
+    <string name="second_number">2-ci ədəd</string>
+    <string name="result_label">Nəticə:</string>
+    <string name="result_default">0</string>
+    <string name="btn_plus">+</string>
+    <string name="btn_minus">-</string>
+    <string name="btn_multiple">*</string>
+    <string name="btn_divide">/</string>
+    <string name="btn_clear">Təmizlə</string>
+    <string name="error_empty_fields">Zəhmət olmasa hər iki ədədi daxil edin</string>
+    <string name="error_invalid_number">Düzgün ədəd daxil edin</string>
+    <string name="error_divide_by_zero">Sıfıra bölmək mümkün deyil!</string>
+
+    <!-- Giriş Ekranı (LoginActivity) Üçün Mətnlər -->
+    <string name="login_title">Daxil Olun</string>
+    <string name="login_subtitle">Zəhmət olmasa məlumatlarınızı daxil edin</string>
+    <string name="label_email">E-poçt ünvanınız</string>
+    <string name="hint_email">E-poçtunuzu yazın</string>
+    <string name="label_password">Şifrəniz</string>
+    <string name="hint_password">Şifrənizi yazın</string>
+    <string name="btn_login">Daxil Ol</string>
+    <string name="prompt_register">Hesabınız yoxdur? Qeydiyyatdan keçin</string>
+    <string name="btn_open_calc">Kalkulyatora Keçid</string>
+    <string name="error_empty_credentials">E-poçt və şifrə boş ola bilməz</string>
+    <string name="login_success">Giriş uğurludur!</string>
+
+    <!-- Qeydiyyat Ekranı (RegisterActivity) Üçün Mətnlər -->
+    <string name="register_title">Hesab Yaradın</string>
+    <string name="register_subtitle">Məlumatlarınızı qeyd edərək qeydiyyatdan keçin</string>
+    <string name="label_repeat_password">Şifrənin təkrarı</string>
+    <string name="hint_repeat_password">Şifrəni yenidən yazın</string>
+    <string name="btn_register">Qeydiyyatdan Keç</string>
+    <string name="prompt_login">Artıq hesabınız var? Daxil olun</string>
+    <string name="error_passwords_dont_match">Şifrələr uyğun gəlmir!</string>
+    <string name="register_success">Qeydiyyat uğurla tamamlandı!</string>
+</resources>

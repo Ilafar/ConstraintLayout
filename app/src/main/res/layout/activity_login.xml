@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ConstraintLayout Tədris Nümunəsi: Giriş Ekranı (Login)
+    ======================================================
+    Bu layout-da tələbələr üçün vacib qaydalar nümayiş olunur:
+    1. 'match_parent' əvəzinə '0dp' (match_constraint) istifadə edilməsi:
+       - ConstraintLayout daxilində 'match_parent' istifadəsi tövsiyə olunmur və xəbərdarlıq verir.
+       - Elementin ekranı tam örtməsi üçün:
+         layout_width="0dp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         yazılmalıdır.
+    2. Missing Constraints (Çatışmayan məhdudiyyətlər):
+       - Əvvəlki kodda Button-un üfüqi constraint-ləri yox idi və 'tools:layout_editor_absoluteX' qalmışdı.
+         Bu, tətbiq işə salındıqda elementin sol yuxarı küncə (0,0) tullanmasına səbəb olur.
+    3. Vertical Bias (Şaquli meyllilik):
+       - 'app:layout_constraintVertical_bias="0.2"' elementin yuxarı və aşağı boşluq arasındakı payını təyin edir (20% yuxarı, 80% aşağı).
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".LoginActivity">
+
+    <!--
+        1. Başlıq Mətni:
+        Üfüqi olaraq sola (Start) və şaquli olaraq yuxarıya (Top) bağlanıb.
+    -->
+    <TextView
+        android:id="@+id/login_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_title"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+        2. Alt Məlumat Mətni:
+        login_text-in altına bağlanıb (relative positioning - layout_constraintTop_toBottomOf).
+    -->
+    <TextView
+        android:id="@+id/info_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login_subtitle"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_text" />
+
+    <!-- 3. E-poçt Etiketi -->
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/label_email"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info_login" />
+
+    <!--
+        4. E-poçt Giriş Sahəsi:
+        DÜZƏLİŞ: 'match_parent' əvəzinə '0dp' yazıldı və həm start, həm də end parent-ə bağlandı.
+    -->
+    <EditText
+        android:id="@+id/edittext_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:autofillHints="emailAddress"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmailLabel" />
+
+    <!-- 5. Şifrə Etiketi -->
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/label_password"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edittext_email" />
+
+    <!--
+        6. Şifrə Giriş Sahəsi:
+        DÜZƏLİŞ: 'match_parent' əvəzinə '0dp' yazıldı və inputType="textPassword" təyin edildi.
+    -->
+    <EditText
+        android:id="@+id/edittext_pwd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:autofillHints="password"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel" />
+
+    <!--
+        7. Daxil Ol Düyməsi (Login Button):
+        DÜZƏLİŞLƏR:
+        - android:id="@+id/btnLogin" əlavə edildi (əvvəl ID yox idi).
+        - 'tools:layout_editor_absoluteX' silindi, yerinə 'constraintStart' və 'constraintEnd' verildi.
+        - 'layout_constraintVertical_bias="0.25"' düyməni sahələrə daha yaxın (25% məsafədə) saxlayır.
+    -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/btn_login"
+        app:layout_constraintBottom_toTopOf="@+id/btnOpenCalc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_pwd"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <!--
+        8. Qeydiyyat Ekranına Keçid Linki:
+    -->
+    <TextView
+        android:id="@+id/tvGoToRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:text="@string/prompt_register"
+        android:textColor="?attr/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <!--
+        9. Kalkulyator Nümunəsinə Keçid Düyməsi:
+        Tələbələrin ConstraintLayout ilə yığılmış digər ekranı birbaşa test etməsi üçün:
+    -->
+    <Button
+        android:id="@+id/btnOpenCalc"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_open_calc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
